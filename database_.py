@@ -1,12 +1,25 @@
 import json
 import pandas as pd
+from os.path import exists
 
 
 class Database:
 
     def __init__(self):
-       
+        
+        self.create_database()
         self.courses = self.load_courses()
+
+
+
+    def create_database(self):
+
+        database = {"courses":[]}
+        if not exists("new_file.json"):
+            with open("new_file.json","w") as file:
+                data = json.dumps(database, indent=2)
+                file.write(data)
+                file.close()
 
 
     def load_courses(self):
@@ -18,9 +31,9 @@ class Database:
         return df
 
     
-    def write_all_changes(self, calender):
+    def write_all_changes(self, calendar):
         """Write all changes to database."""
-        changes = calender.modified
+        changes = calendar.modified
         with open ("new_file.json","w") as file:
             data = json.dumps(changes, indent=2)
             file.write(data)
