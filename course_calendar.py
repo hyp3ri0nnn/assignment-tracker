@@ -84,20 +84,3 @@ class Calender:
         else:
             course = options[choice]
             return course 
-
-    
-        # print(options)
-        # course_code = input()
-
-
-new = Calender()
-# new.add_new_assignment()
-# new.add_new_course()
-new.print_calender()
-print(len(new))
-# print("before")
-# new.print_calender()
-# new.new_courses()
-# new.add_all()
-# print("new")
-# new.print_calender()
