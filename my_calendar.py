@@ -5,8 +5,8 @@ from course import Course, Assignment
 from datetime import date 
 import pandas as pd 
 
-class Calender:
-    """A calender template."""
+class Calendar:
+    """A Calendar template."""
 
     def __init__(self):
         
@@ -15,8 +15,8 @@ class Calender:
         self.original = self.database.load_courses()
 
 
-    def print_calender(self):
-        """Print that calender to the console."""        
+    def show(self):
+        """Print that Calendar to the console."""        
         courses = self.original["courses"]
         for i in courses:
             name_of_course = i["name"]
@@ -85,3 +85,31 @@ class Calender:
             course = options[choice]
             return course 
 
+    def set_finished(self):
+        choice = self.choose_course()
+        print("Select assignment: ")
+        for opt in range(len(choice["assignments"])):
+            print(f"Press {opt + 1} for ->  {choice['assignments'][opt]['name']}")
+        option = int(input()) - 1
+        print(choice["assignments"][opt]["done"])
+        choice["assignments"][option]["done"] = 1
+        print(f"{choice['code']} {choice['assignments'][opt]['name']} changed to finished!")
+        self.modified = self.original
+        self.database.write_all_changes(self)
+        self.show()
+
+
+    def set_unfinished(self):
+        choice = self.choose_course()
+        print("Select assignment: ")
+        for opt in range(len(choice["assignments"])):
+            print(f"Press {opt + 1} for ->  {choice['assignments'][opt]['name']}")
+        option = int(input()) - 1
+        print(choice["assignments"][opt]["done"])
+        choice["assignments"][option]["done"] = 0
+        print(f"{choice['code']} {choice['assignments'][opt]['name']} changed to unfinished! :(")
+        self.modified = self.original
+        self.database.write_all_changes(self)
+        self.show()
+
+        
