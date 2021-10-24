@@ -1,3 +1,5 @@
+#!python3
+
 import json
 
 from database_ import Database
@@ -113,3 +115,33 @@ class Calendar:
         self.show()
 
         
+
+
+if __name__ == "__main__":
+
+    calendar = Calendar()
+    while True:
+        
+        print("Press 'q' to quit.")
+        print("Press 'a_c' to add new course.")
+        print("Press 's' to show calendar.")
+        print("Press 'a_s' to add new course.")
+        print("Press 's_f' to add new course.")
+        print("Press 's_uf' to add new course.")
+        button = str(input())
+        
+        if button == "q":
+            break 
+        else:
+            if button == "a_c":
+                calendar.add_new_course()
+            elif button == "s":
+                calendar.show()
+            elif button == "a_s":
+                calendar.add_new_assignment()
+            elif button == "s_f":
+                calendar.set_finished()
+            elif button == "s_uf":
+                calendar.set_unfinished()
+
+    
