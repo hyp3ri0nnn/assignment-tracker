@@ -1,4 +1,4 @@
-#!python3
+#!C:\Users\Mamut\.virtualenvs\AssignmentTracker-5sIsjk4Y\Scripts\python
 
 import json
 
@@ -20,6 +20,11 @@ class Calendar:
     def show(self):
         """Print that Calendar to the console."""        
         courses = self.original["courses"]
+        counts = self.count_assignments()
+        print("-" * 40)
+        print(f" {counts[1]:>17} / {counts[2]} finished.")
+        print(f" {counts[0]:>17} assignment left.")
+        print("-" * 40)
         for i in courses:
             name_of_course = i["name"]
             code_of_course = i["code"]
@@ -114,7 +119,18 @@ class Calendar:
         self.database.write_all_changes(self)
         self.show()
 
-        
+    def count_assignments(self):
+        courses = self.original["courses"]
+        total = 0
+        finished = 0
+        for course in courses:
+            for assignment in course["assignments"]:
+                if assignment["done"] == 1:
+                    finished += 1
+                total += 1
+
+        unfinished = total - finished
+        return unfinished, finished, total
 
 
 if __name__ == "__main__":
