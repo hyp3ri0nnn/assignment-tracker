@@ -35,6 +35,7 @@ class Calendar:
             teacher = i["teacher"]
             assignments = i["assignments"]
             ass_table = pd.DataFrame(assignments)
+            ass_table.index += 1
             # print(table)
             course_info = f"{code_of_course} - {name_of_course} - {teacher}"
             print(f'\n{course_info:^100}\n')
