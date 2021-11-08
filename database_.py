@@ -15,8 +15,8 @@ class Database:
     def create_database(self):
 
         database = {"courses":[]}
-        if not exists("db/new_file.json"):
-            with open("db/new_file.json","w") as file:
+        if not exists("new_file.json"):
+            with open("new_file.json","w") as file:
                 data = json.dumps(database, indent=2)
                 file.write(data)
                 file.close()
@@ -24,7 +24,7 @@ class Database:
 
     def load_courses(self):
         """Load all courses from database."""
-        with open("db/new_file.json", "r") as file:
+        with open("new_file.json", "r") as file:
             data = file.read()
             df = json.loads(data)
         file.close()
@@ -34,7 +34,7 @@ class Database:
     def write_all_changes(self, calendar):
         """Write all changes to database."""
         changes = calendar.modified
-        with open ("db/new_file.json","w") as file:
+        with open ("new_file.json","w") as file:
             data = json.dumps(changes, indent=2)
             file.write(data)
         file.close()
