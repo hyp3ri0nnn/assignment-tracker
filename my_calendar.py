@@ -1,13 +1,12 @@
 #!C:\Users\Mamut\.virtualenvs\AssignmentTracker-5sIsjk4Y\Scripts\python
 
-import json
-
-from pandas.io.formats.format import IntArrayFormatter
-
 from database_ import Database
 from course import Course, Assignment
 from datetime import date 
+from tabulate import tabulate
+
 import pandas as pd 
+import json
 
 class Calendar:
     """A Calendar template."""
@@ -39,8 +38,7 @@ class Calendar:
             # print(table)
             course_info = f"{code_of_course} - {name_of_course} - {teacher}"
             print(f'\n{course_info:^100}\n')
-            table = f"{ass_table.to_markdown()}"
-            print(f'{table:^100}')
+            print(f'{tabulate(ass_table, tablefmt="fancy_grid", headers="keys")}')
             print(f"{specifier:>100}")
 
 
@@ -148,25 +146,25 @@ if __name__ == "__main__":
         print(f"\n{name:^100}\n")
 
         print(" " * 30, "Press   'q'         to quit.")
-        print(" " * 30, "Press   'a_c'       to add new course.")
+        print(" " * 30, "Press   'ac'       to add new course.")
         print(" " * 30, "Press   's'         to show calendar.")
-        print(" " * 30, "Press   'a_s'       to add new assignment.")
-        print(" " * 30, "Press   's_f'       to set finished assignment.")
-        print(" " * 30, "Press   's_uf'      to set unfinished assignment.")
+        print(" " * 30, "Press   'as'       to add new assignment.")
+        print(" " * 30, "Press   'sf'       to set finished assignment.")
+        print(" " * 30, "Press   'suf'      to set unfinished assignment.")
         button = str(input())
         
         if button == "q":
             break 
         else:
-            if button == "a_c":
+            if button == "ac":
                 calendar.add_new_course()
             elif button == "s":
                 calendar.show()
-            elif button == "a_s":
+            elif button == "as":
                 calendar.add_new_assignment()
-            elif button == "s_f":
+            elif button == "sf":
                 calendar.set_finished()
-            elif button == "s_uf":
+            elif button == "suf":
                 calendar.set_unfinished()
 
     
