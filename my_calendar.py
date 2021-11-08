@@ -2,6 +2,8 @@
 
 import json
 
+from pandas.io.formats.format import IntArrayFormatter
+
 from database_ import Database
 from course import Course, Assignment
 from datetime import date 
@@ -21,10 +23,13 @@ class Calendar:
         """Print that Calendar to the console."""        
         courses = self.original["courses"]
         counts = self.count_assignments()
-        print("-" * 40)
-        print(f" {counts[1]:>17} / {counts[2]} finished.")
-        print(f" {counts[0]:>17} assignment left.")
-        print("-" * 40)
+        specifier = "-" * 100
+        info = f" {counts[1]} / {counts[2]} finished."
+        info2 = f" {counts[0]} assignment left."
+        print(specifier)
+        print(f'{info:^100}')
+        print(f'{info2:^100}')
+        print(specifier)
         for i in courses:
             name_of_course = i["name"]
             code_of_course = i["code"]
@@ -32,9 +37,11 @@ class Calendar:
             assignments = i["assignments"]
             ass_table = pd.DataFrame(assignments)
             # print(table)
-            print(f"\n{code_of_course:>20} - {name_of_course} - {teacher}\n")
-            print(ass_table)
-            print("---------------------------------------------------------")
+            course_info = f"{code_of_course} - {name_of_course} - {teacher}"
+            print(f'\n{course_info:^100}\n')
+            table = f"{ass_table.to_markdown()}"
+            print(f'{table:^100}')
+            print(f"{specifier:>100}")
 
 
     def __len__(self):
@@ -137,13 +144,15 @@ if __name__ == "__main__":
 
     calendar = Calendar()
     while True:
-        
-        print("Press 'q' to quit.")
-        print("Press 'a_c' to add new course.")
-        print("Press 's' to show calendar.")
-        print("Press 'a_s' to add new course.")
-        print("Press 's_f' to add new course.")
-        print("Press 's_uf' to add new course.")
+        name = "ASSIGNMENT TRACKER"
+        print(f"\n{name:^100}\n")
+
+        print(" " * 30, "Press   'q'         to quit.")
+        print(" " * 30, "Press   'a_c'       to add new course.")
+        print(" " * 30, "Press   's'         to show calendar.")
+        print(" " * 30, "Press   'a_s'       to add new assignment.")
+        print(" " * 30, "Press   's_f'       to set finished assignment.")
+        print(" " * 30, "Press   's_uf'      to set unfinished assignment.")
         button = str(input())
         
         if button == "q":
