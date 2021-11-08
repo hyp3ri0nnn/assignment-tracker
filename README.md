@@ -1,2 +1,2 @@
 # assignment-tracker
-simple assignment tracker in json format
+simple assignment tracker with json database works on cmd.
